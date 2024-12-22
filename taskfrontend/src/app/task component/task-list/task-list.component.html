@@ -1,0 +1,39 @@
+<h1>Task Management</h1>
+<div>
+  <h3>{{ isEditing ? 'Edit Task' : 'Add Task' }}</h3>
+  <form (ngSubmit)="addTask()">
+    <input [(ngModel)]="newTask.name" placeholder="Task Name" name="name" required />
+     <textarea [(ngModel)]="newTask.description" placeholder="Description" name="description" required ></textarea>
+      <select [(ngModel)]="newTask.status" name="status">
+      <option value="to-do">To-Do</option>
+      <option value="in-progress">In Progress</option>
+      <option value="blocked">Blocked</option>
+      <option value="done" >Done</option>
+    </select>
+    <button type="submit">{{isEditing ? 'Update Task' : 'Add Task' }}</button>
+    <button type="button" (click)="resetForm()" *ngIf="isEditing">Cancel</button>
+  </form>
+</div>
+
+<h3>Task List</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th class="act">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.name }}</td>
+      <td>{{ task.description }}</td>
+      <td>{{ task.status }}</td>
+      <td>
+        <button (click)="editTask(task)" >Edit</button>
+        <button (click)="deleteTask(task.id)"  class="del">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
